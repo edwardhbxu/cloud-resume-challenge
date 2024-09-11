@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="assets/css/index.css" />
+    <script
+      src="https://kit.fontawesome.com/708e97025f.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="data/profile.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
+  </head>
+  <script>
+    function getViewcount(retid) {
+        fetch("https://tsqd7qoic2.execute-api.us-east-1.amazonaws.com/Testapi")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            document.getElementById(retid).textContent = `${data['Viewcount']}`;
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    };
+  </script>
+
+  <body>
+    <div class="container">
+      <section class="header info-row">
+        <div class="header-title" id="profileName">Your Name</div>
+        <div id="linksList" class="contact-section">
+          <div class="contact-item">
+            <span class="contact-logo">
+              <i class="fas fa-at" aria-hidden="true"></i>
+            </span>
+            <a
+              class="contact-info"
+              id="contactEmail"
+              target="_blank"
+              href=""
+              rel="noopener noreferrer"
+            >
+              abc@xyz.com
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <span style="font-size: 16px; font-weight: bold;">Viewcount:</span>
+      <span id="viewcount" style="font-size: 16px;">Loading...</span>
+      <script>
+          getViewcount("viewcount");
+      </script>
+
+
+      <section class="info-row">
+        <div class="cat-header">
+          <span class="cat-indicator">
+            <i class="fas fa-code" aria-hidden="true"></i>
+          </span>
+          <span class="cat-title">Skills</span>
+        </div>
+        <div class="cat-list-body">
+          <ul id="skillList" class="cat-list"></ul>
+        </div>
+      </section>
+
+      <!-- Work experience section -->
+      <section class="info-row">
+        <div class="cat-header">
+          <span class="cat-indicator">
+            <i class="fas fa-briefcase" aria-hidden="true"></i>
+          </span>
+          <span class="cat-title">Professional Experience</span>
+        </div>
+        <div class="cat-list-body">
+          <ul id="experienceList" class="cat-list"></ul>
+        </div>
+      </section>
+
+      <!-- Projects Listing section -->
+      <section class="info-row">
+        <div class="cat-header">
+          <span class="cat-indicator">
+            <i class="fas fa-code-branch" aria-hidden="true"></i>
+          </span>
+          <span class="cat-title">Personal Projects</span>
+        </div>
+        <div class="cat-list-body">
+          <ul id="projectList" class="cat-list"></ul>
+        </div>
+      </section>
+
+      <!-- Educaation listing section -->
+      <section class="info-row">
+        <div class="cat-header">
+          <span class="cat-indicator">
+            <i class="fas fa-graduation-cap" aria-hidden="true"></i>
+          </span>
+          <span class="cat-title">Education</span>
+        </div>
+        <div class="cat-list-body">
+          <ul id="educationList" class="cat-list"></ul>
+        </div>
+      </section>
+
+      <!-- Other contents section -->
+      <section class="footer"></section>
+    </div>
+  </body>
+</html>
