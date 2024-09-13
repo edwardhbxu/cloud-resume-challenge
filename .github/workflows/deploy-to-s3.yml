@@ -2,11 +2,7 @@ name: Upload HTML files to S3 bucket
 
 on:
   workflow_dispatch:
-    inputs:
-      bucket_name:
-        description: 'Name of S3 bucket'
-        required: true
-        type: string
+
 
 jobs:
   upload-html-to-s3:
@@ -22,5 +18,5 @@ jobs:
         with:
           aws_key_id: ${{ secrets.AWS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
-          aws_bucket: ${{ inputs.bucket_name }}
+          aws_bucket: ${{ secrets.AWS_BUCKET_NAME }}
           source_dir: 'frontend'
