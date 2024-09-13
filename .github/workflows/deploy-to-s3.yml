@@ -1,0 +1,26 @@
+name: Upload HTML files to S3 bucket
+
+on:
+  workflow_dispatch:
+    inputs:
+      bucket_name:
+        description: 'Name of S3 bucket'
+        required: true
+        type: string
+
+jobs:
+  upload-html-to-s3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - uses: shallwefootball/s3-upload-action@master
+        name: Upload S3
+        id: S3
+        with:
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ inputs.bucket_name }}
+          source_dir: 'frontend'
