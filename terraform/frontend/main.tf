@@ -1,10 +1,10 @@
 provider "aws" {
   region = "us-east-1"
-  profile = "021891596959_PowerUserAccess"
+  profile = var.profile
 }
 
 resource "aws_s3_bucket" "sitebucket" {
-  bucket = "e43xu-cloud-resume-challenge"
+  bucket = var.bucket_name
 
   tags = {
     deploy        = "terraform"
@@ -32,7 +32,7 @@ EOF
 }
 
 locals {
-  s3_origin_id = "S3-e43xu-cloud-resume-challenge"
+  s3_origin_id = ""
 }
 
 resource "aws_cloudfront_origin_access_control" "cloudfrontoac" {
@@ -78,7 +78,7 @@ resource "aws_cloudfront_distribution" "cloudfrontcdn" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
 
-  aliases = ["resume.e86xucloud.net"]
+  aliases = [var.crc_url]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -158,15 +158,15 @@ resource "aws_cloudfront_distribution" "cloudfrontcdn" {
   }
 
   viewer_certificate {
-    acm_certificate_arn            = "arn:aws:acm:us-east-1:021891596959:certificate/16d682e9-9114-4506-af4f-d618a330d0c2"
+    acm_certificate_arn            = var.ssl_cert
     ssl_support_method             = "sni-only"
     minimum_protocol_version       = "TLSv1.2_2021"
   }
 }
 
 resource "aws_route53_record" "cloudfront_record" {
-  zone_id = "Z0490913LH0PDXH42XM9"
-  name    = "resume.e86xucloud.net"
+  zone_id = var.crc_url
+  name    = var.
   type    = "A"
 
   alias {
