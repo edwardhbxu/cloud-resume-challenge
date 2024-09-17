@@ -1,4 +1,4 @@
 # cloud-resume-challenge
 Cloud Resume Challenge
 
-![Image](CRCdiagram.drawio)
+![Image](CRCdiagram.drawio.svg)
